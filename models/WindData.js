@@ -1,4 +1,3 @@
-// models/WindData.js
 const { sequelize, DataTypes } = require("./database");
 const Weather = require("./Weather");
 
@@ -34,9 +33,13 @@ const WindData = sequelize.define(
     },
     should_go_outside: { type: DataTypes.BOOLEAN },
   },
-  { timestamps: false },
+  {
+    timestamps: false,
+    tableName: "wind_data", // Явно вказуємо назву таблиці
+  },
 );
 
+// Налаштування зв'язків між таблицями (1 до 1)
 Weather.hasOne(WindData, { foreignKey: "weather_id" });
 WindData.belongsTo(Weather, { foreignKey: "weather_id" });
 
